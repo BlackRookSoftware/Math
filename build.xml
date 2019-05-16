@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<!-- ====================================================================== 
+     Black Rook Math Build File    
+     Matt Tropiano                                                                
+     ====================================================================== -->
+<project name="build" default="compile">
+
+	<description>Black Rook Math</description>
+
+	<property file="build.properties" />
+
+	<!-- Dependencies -->
+	<property name="dev.base" value=".." />
+	<property name="S" value="${path.separator}" />
+
+	<!-- Project Libs -->
+	
+	<!-- Project Info -->
+	<property name="project.archive" value="blackrook-math" />
+	<property name="project.javadoc.title" value="Black Rook Math" />
+	<property name="project.classpath" value=""/>
+	<property name="project.testclass" value=""/>
+	<property name="project.testclass.main" value=""/>
+	<property name="project.javadoc.packages" value="
+		com.blackrook.math,
+		com.blackrook.math.easing,
+		com.blackrook.math.geometry,
+		com.blackrook.math.util,
+		com.blackrook.math.wave
+		"
+	/>
+	
+	<import file="build-import.xml" />
+
+	<target name="javadoc" depends="init.docs" description="Builds the documentation.">
+        <javadoc access="protected" 
+        	additionalparam="-J-Xmx512m  " author="true" 
+        	classpath="${bin.dir}" 
+        	doctitle="${project.javadoc.title}" 
+        	sourcepath="${src.dir}" 
+        	packagenames="${project.javadoc.packages}"
+        	destdir="${docs.dir}" 
+        	splitindex="true" 
+        	use="true" 
+        	version="true" 
+        	nodeprecated="false" 
+        	nodeprecatedlist="false" 
+        	noindex="false" 
+        	nonavbar="false" 
+        	notree="false"
+    		>
+            <link href="https://docs.oracle.com/en/java/javase/11/docs/api/"/>
+        </javadoc>
+    </target>	
+
+</project>
