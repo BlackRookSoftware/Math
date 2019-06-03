@@ -16,6 +16,11 @@ NONE
 This library contains classes for mathematical functions or geometric calculations.
 These classes can be redistributed in whole or in part.
 
+### Why?
+
+This has been done before - several times, even - but this one is MIT licensed and acknowledges
+that not all of it (at once) will be useful.  
+
 ### Library
 
 Contained in this release is a series of classes that should be used for common math or geometry. 
