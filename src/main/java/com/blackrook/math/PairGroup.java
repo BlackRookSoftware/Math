@@ -929,16 +929,10 @@ public class PairGroup implements Iterable<PairGroup.Pair>
 		@Override
 		public Pair next() 
 		{
-			Pair p = group.pairList[current];
+			Pair p = group.pairList[current++];
 			surrogateCurrent.x = p.x;
 			surrogateCurrent.y = p.y;
 			removed = false;
-
-			if (!removed)
-				current++;
-			else
-				removed = false;
-
 			return surrogateCurrent;
 		}
 
@@ -957,8 +951,9 @@ public class PairGroup implements Iterable<PairGroup.Pair>
 			if (removed) 
 				throw new IllegalStateException("remove() called before next()");
 			
-			Pair p = group.pairList[current];
+			Pair p = group.pairList[current - 1];
 			group.remove(p.x, p.y);
+			current--;
 			removed = true;
 		}
 		
