@@ -9,19 +9,20 @@ package com.blackrook.math.geometry;
 /**
  * Data that represents a plane, consisting of a normal vector
  * and distance from the origin. 
+ * @param <V> the vector type.
  * @author Matthew Tropiano
  */
-public abstract class PlaneD<T extends VectD>
+public abstract class PlaneD<V extends VectD>
 {
 	/** Normal vector. */
-	public T normal;
+	public V normal;
 	/** Distance from the origin. */
 	public double distance;
 	
 	/**
 	 * @return this plane's normal vector.
 	 */
-	public T getNormal()
+	public V getNormal()
 	{
 		return normal;
 	}
@@ -93,6 +94,6 @@ public abstract class PlaneD<T extends VectD>
 	}
 	
 	/** @return an exact copy of this Plane. */
-	public abstract PlaneD<T> copy();
+	public abstract PlaneD<V> copy();
 	
 }

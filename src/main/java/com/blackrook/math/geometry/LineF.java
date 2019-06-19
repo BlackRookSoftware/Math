@@ -8,20 +8,21 @@ package com.blackrook.math.geometry;
 
 /**
  * Describes a line segment.
+ * @param <P> the point type.
  * @author Matthew Tropiano
  */
-public abstract class LineF<T extends PointF>
+public abstract class LineF<P extends PointF>
 {
 	/** Starting point. */
-	public T pointA;
+	public P pointA;
 	/** Ending point. */
-	public T pointB;
+	public P pointB;
 
 	/**
 	 * Returns the reference to the starting point.
 	 * @return a reference to starting point.
 	 */
-	public T getPointA()
+	public P getPointA()
 	{
 		return pointA;
 	}
@@ -30,13 +31,13 @@ public abstract class LineF<T extends PointF>
 	 * Returns the reference to the ending point.
 	 * @return a reference to ending point.
 	 */
-	public T getPointB()
+	public P getPointB()
 	{
 		return pointB;
 	}
 	
 	/** @return a copy of this line. */
-	public abstract LineF<T> copy();
+	public abstract LineF<P> copy();
 
 	@Override
 	public String toString()
