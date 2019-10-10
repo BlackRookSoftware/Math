@@ -5,7 +5,7 @@
  ******************************************************************************/
 package com.blackrook.math.wave;
 
-import com.blackrook.math.util.Utils;
+import com.blackrook.math.struct.Utils;
 
 /** 
  * Waveform type enumeration.

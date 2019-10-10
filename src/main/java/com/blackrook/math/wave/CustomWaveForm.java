@@ -7,7 +7,7 @@ package com.blackrook.math.wave;
 
 import java.util.Random;
 
-import com.blackrook.math.util.Utils;
+import com.blackrook.math.struct.Utils;
 
 /**
  * An abstract representation of a WaveForm.

@@ -5,7 +5,7 @@
  ******************************************************************************/
 package com.blackrook.math;
 
-import com.blackrook.math.util.Utils;
+import com.blackrook.math.struct.Utils;
 
 /**
  * This is a 4x4 Matrix object that stores doubles.

@@ -5,7 +5,7 @@
  ******************************************************************************/
 package com.blackrook.math.geometry;
 
-import com.blackrook.math.util.Utils;
+import com.blackrook.math.struct.Utils;
 
 /**
  * Utility library for geometric stuff.

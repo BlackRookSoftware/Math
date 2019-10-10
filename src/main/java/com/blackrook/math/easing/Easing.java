@@ -5,7 +5,7 @@
  ******************************************************************************/
 package com.blackrook.math.easing;
 
-import com.blackrook.math.util.Utils;
+import com.blackrook.math.struct.Utils;
 
 /**
  * An enumeration of base easing types for actions. 
