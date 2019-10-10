@@ -26,7 +26,7 @@
 		com.blackrook.math,
 		com.blackrook.math.easing,
 		com.blackrook.math.geometry,
-		com.blackrook.math.util,
+		com.blackrook.math.struct,
 		com.blackrook.math.wave
 		"
 	/>
