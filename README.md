@@ -1,6 +1,6 @@
 # Black Rook Math
 
-Copyright (c) 2019 Black Rook Software. All rights reserved.  
+Copyright (c) 2019 Black Rook Software.  
 [https://github.com/BlackRookSoftware/Math](https://github.com/BlackRookSoftware/Math)
 
 ### Required Libraries
