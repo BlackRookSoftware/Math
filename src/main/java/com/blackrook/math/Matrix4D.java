@@ -5,8 +5,6 @@
  ******************************************************************************/
 package com.blackrook.math;
 
-import com.blackrook.math.struct.Utils;
-
 /**
  * This is a 4x4 Matrix object that stores doubles.
  * 
@@ -534,7 +532,7 @@ public class Matrix4D
 	// Rotate X.
 	private static void rotationXArray(double[] out, double degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[5] = out[10] = Math.cos(rads);
 		out[6] = Math.sin(rads);
@@ -544,7 +542,7 @@ public class Matrix4D
 	// Rotate Y.
 	private static void rotationYArray(double[] out, double degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[0] = out[10] = Math.cos(rads);
 		out[8] = Math.sin(rads);
@@ -554,7 +552,7 @@ public class Matrix4D
 	// Rotate Z.
 	private static void rotationZArray(double[] out, double degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[0] = out[5] = Math.cos(rads);
 		out[1] = Math.sin(rads);
@@ -583,12 +581,12 @@ public class Matrix4D
 		double fx = centerX - eyeX;
 		double fy = centerY - eyeY;
 		double fz = centerZ - eyeZ;
-		double flen = Utils.getVectorLength(fx, fy, fz);
+		double flen = getVectorLength(fx, fy, fz);
 		fx = fx / flen;
 		fy = fy / flen;
 		fz = fz / flen;
 	
-		double ulen = Utils.getVectorLength(upX, upY, upZ);
+		double ulen = getVectorLength(upX, upY, upZ);
 		double ux = upX / ulen;
 		double uy = upY / ulen;
 		double uz = upZ / ulen;
@@ -596,7 +594,7 @@ public class Matrix4D
 		double sx = fy*uz - fz*uy;
 		double sy = fz*ux - fx*uz;
 		double sz = fx*uy - fy*ux;
-		double slen = Utils.getVectorLength(sx, sy, sz);
+		double slen = getVectorLength(sx, sy, sz);
 		sx = sx / slen;
 		sy = sy / slen;
 		sz = sz / slen;
@@ -608,15 +606,15 @@ public class Matrix4D
 		out[0] = sx;
 		out[1] = sy;
 		out[2] = sz;
-		out[3] = -Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, sx, sy, sz);
+		out[3] = -getVectorDotProduct(eyeX, eyeY, eyeZ, sx, sy, sz);
 		out[4] = ux;
 		out[5] = uy;
 		out[6] = uz;
-		out[7] = -Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, ux, uy, uz);
+		out[7] = -getVectorDotProduct(eyeX, eyeY, eyeZ, ux, uy, uz);
 		out[8] = -fx;
 		out[9] = -fy;
 		out[10] = -fz;
-		out[11] = -Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, fx, fy, fz);
+		out[11] = -getVectorDotProduct(eyeX, eyeY, eyeZ, fx, fy, fz);
 		out[12] = out[13] = out[14] = 0.0;
 		out[15] = 1.0;
 	}
@@ -624,7 +622,7 @@ public class Matrix4D
 	// Set perspective.
 	private static void perspectiveArray(double[] out, double fov, double aspectRatio, double zNear, double zFar)
 	{
-		double halfangle = Utils.degToRad(fov) / 2;
+		double halfangle = degToRad(fov) / 2;
 		double fpn = zFar+zNear;
 		double nmf = zNear-zFar;
 		double cothalffov = Math.cos(halfangle)/Math.sin(halfangle);
@@ -651,9 +649,9 @@ public class Matrix4D
 		out[5] = n2 / tmb;
 		out[8] = (right+left) / rml;
 		out[9] = (top+bottom) / tmb;
-		out[10] = (zFar+zNear) / fmn;
+		out[10] = -(zFar+zNear) / fmn;
 		out[11] = -1f;
-		out[14] = (2f*zNear*zFar) / fmn;
+		out[14] = (-2f*zNear*zFar) / fmn;
 		out[15] = 0f;
 	}
 
@@ -668,9 +666,9 @@ public class Matrix4D
 		out[0] = 2f / rml;
 		out[5] = 2f / tmb;
 		out[10] = -2f / fmn;
-		out[12] = (right+left) / rml;
-		out[13] = (top+bottom) / tmb;
-		out[14] = (zFar+zNear) / fmn;
+		out[12] = -((right+left) / rml);
+		out[13] = -((top+bottom) / tmb);
+		out[14] = -((zFar+zNear) / fmn);
 	}
 
 	// Set aspect ortho.
@@ -710,6 +708,55 @@ public class Matrix4D
 		}
 	}
 	
+	/**
+	 * Converts degrees to radians.
+	 * @param degrees the input angle in degrees.
+	 * @return the resultant angle in radians.
+	 */
+	private static double degToRad(double degrees)
+	{
+		return (degrees * Math.PI)/180;
+	}
+
+	/**
+	 * Returns the length of a vector by its components.
+	 * @param x the x-component.
+	 * @param y the y-component.
+	 * @param z the z-component.
+	 * @return the length of the vector.
+	 */
+	private static double getVectorLength(double x, double y, double z)
+	{
+		return Math.sqrt(getVectorLengthSquared(x, y, z));
+	}
+
+	/**
+	 * Returns the squared length of a vector by its components.
+	 * @param x the x-component.
+	 * @param y the y-component.
+	 * @param z the z-component.
+	 * @return the length of the vector.
+	 */
+	private static double getVectorLengthSquared(double x, double y, double z)
+	{
+		return x*x + y*y + z*z;
+	}
+
+	/**
+	 * Returns the dot product of two vectors.
+	 * @param v1x the first vector's x-component.
+	 * @param v1y the first vector's y-component.
+	 * @param v1z the first vector's z-component.
+	 * @param v2x the second vector's x-component.
+	 * @param v2y the second vector's y-component.
+	 * @param v2z the second vector's z-component.
+	 * @return the dot product of both vectors.
+	 */
+	private static double getVectorDotProduct(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z)
+	{
+		return v1x * v2x + v1y * v2y + v1z * v2z;
+	}
+
 	private static final class Cache
 	{
 		private static final ThreadLocal<Cache> LOCAL = ThreadLocal.withInitial(()->new Cache());

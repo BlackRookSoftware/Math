@@ -1,11 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2019 Black Rook Software
+ * Copyright (c) 2019-2021 Black Rook Software
  * This program and the accompanying materials are made available under 
  * the terms of the MIT License, which accompanies this distribution.
  ******************************************************************************/
 package com.blackrook.math;
-
-import com.blackrook.math.struct.Utils;
 
 /**
  * This is a 4x4 Matrix object that stores floats.
@@ -212,6 +210,15 @@ public class Matrix4F
 	public void set(int row, int col, float val)
 	{
 		matrixArray[row+(col*4)] = val;
+	}
+	
+	/**
+	 * Sets all positions in this matrix to a set of values from another.
+	 * @param matrix the matrix to copy from.
+	 */
+	public void set(Matrix4F matrix)
+	{
+		set(matrix.getArray());
 	}
 	
 	/**
@@ -535,7 +542,7 @@ public class Matrix4F
 	// Rotate X.
 	private static void rotationXArray(float[] out, float degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[5] = out[10] = (float)Math.cos(rads);
 		out[6] = (float)Math.sin(rads);
@@ -545,7 +552,7 @@ public class Matrix4F
 	// Rotate Y.
 	private static void rotationYArray(float[] out, float degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[0] = out[10] = (float)Math.cos(rads);
 		out[8] = (float)Math.sin(rads);
@@ -555,7 +562,7 @@ public class Matrix4F
 	// Rotate Z.
 	private static void rotationZArray(float[] out, float degrees)
 	{
-		double rads = Utils.degToRad(degrees);
+		double rads = degToRad(degrees);
 		identityArray(out);
 		out[0] = out[5] = (float)Math.cos(rads);
 		out[1] = (float)Math.sin(rads);
@@ -584,12 +591,12 @@ public class Matrix4F
 		double fx = centerX - eyeX;
 		double fy = centerY - eyeY;
 		double fz = centerZ - eyeZ;
-		double flen = Utils.getVectorLength(fx, fy, fz);
+		double flen = getVectorLength(fx, fy, fz);
 		fx = fx / flen;
 		fy = fy / flen;
 		fz = fz / flen;
 	
-		double ulen = Utils.getVectorLength(upX, upY, upZ);
+		double ulen = getVectorLength(upX, upY, upZ);
 		double ux = upX / ulen;
 		double uy = upY / ulen;
 		double uz = upZ / ulen;
@@ -597,7 +604,7 @@ public class Matrix4F
 		double sx = fy*uz - fz*uy;
 		double sy = fz*ux - fx*uz;
 		double sz = fx*uy - fy*ux;
-		double slen = Utils.getVectorLength(sx, sy, sz);
+		double slen = getVectorLength(sx, sy, sz);
 		sx = sx / slen;
 		sy = sy / slen;
 		sz = sz / slen;
@@ -609,15 +616,15 @@ public class Matrix4F
 		out[0] = (float)sx;
 		out[1] = (float)sy;
 		out[2] = (float)sz;
-		out[3] = (float)-Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, sx, sy, sz);
+		out[3] = (float)-getVectorDotProduct(eyeX, eyeY, eyeZ, sx, sy, sz);
 		out[4] = (float)ux;
 		out[5] = (float)uy;
 		out[6] = (float)uz;
-		out[7] = (float)-Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, ux, uy, uz);
+		out[7] = (float)-getVectorDotProduct(eyeX, eyeY, eyeZ, ux, uy, uz);
 		out[8] = (float)-fx;
 		out[9] = (float)-fy;
 		out[10] = (float)-fz;
-		out[11] = (float)-Utils.getVectorDotProduct(eyeX, eyeY, eyeZ, fx, fy, fz);
+		out[11] = (float)-getVectorDotProduct(eyeX, eyeY, eyeZ, fx, fy, fz);
 		out[12] = out[13] = out[14] = 0.0f;
 		out[15] = 1.0f;
 	}
@@ -625,7 +632,7 @@ public class Matrix4F
 	// Set perspective.
 	private static void perspectiveArray(float[] out, float fov, float aspectRatio, float zNear, float zFar)
 	{
-		double halfangle = Utils.degToRad(fov) / 2;
+		double halfangle = degToRad(fov) / 2;
 		float fpn = zFar+zNear;
 		float nmf = zNear-zFar;
 		double cothalffov = Math.cos(halfangle)/Math.sin(halfangle);
@@ -652,9 +659,9 @@ public class Matrix4F
 		out[5] = n2 / tmb;
 		out[8] = (right+left) / rml;
 		out[9] = (top+bottom) / tmb;
-		out[10] = (zFar+zNear) / fmn;
+		out[10] = -(zFar+zNear) / fmn;
 		out[11] = -1f;
-		out[14] = (2f*zNear*zFar) / fmn;
+		out[14] = (-2f*zNear*zFar) / fmn;
 		out[15] = 0f;
 	}
 
@@ -669,9 +676,9 @@ public class Matrix4F
 		out[0] = 2f / rml;
 		out[5] = 2f / tmb;
 		out[10] = -2f / fmn;
-		out[12] = (right+left) / rml;
-		out[13] = (top+bottom) / tmb;
-		out[14] = (zFar+zNear) / fmn;
+		out[12] = -((right+left) / rml);
+		out[13] = -((top+bottom) / tmb);
+		out[14] = -((zFar+zNear) / fmn);
 	}
 
 	// Set aspect ortho.
@@ -696,7 +703,7 @@ public class Matrix4F
         	bottom = bottom - heightDiff;
         }
 		
-        orthoArray(out, left, right, bottom, top, near, far);	
+        orthoArray(out, left, right, bottom, top, near, far);
 	}
 	
 	// Multiplies two matrices.
@@ -711,6 +718,55 @@ public class Matrix4F
 		}
 	}
 	
+	/**
+	 * Converts degrees to radians.
+	 * @param degrees the input angle in degrees.
+	 * @return the resultant angle in radians.
+	 */
+	private static double degToRad(double degrees)
+	{
+		return (degrees * Math.PI)/180;
+	}
+
+	/**
+	 * Returns the length of a vector by its components.
+	 * @param x the x-component.
+	 * @param y the y-component.
+	 * @param z the z-component.
+	 * @return the length of the vector.
+	 */
+	private static double getVectorLength(double x, double y, double z)
+	{
+		return Math.sqrt(getVectorLengthSquared(x, y, z));
+	}
+
+	/**
+	 * Returns the squared length of a vector by its components.
+	 * @param x the x-component.
+	 * @param y the y-component.
+	 * @param z the z-component.
+	 * @return the length of the vector.
+	 */
+	private static double getVectorLengthSquared(double x, double y, double z)
+	{
+		return x*x + y*y + z*z;
+	}
+
+	/**
+	 * Returns the dot product of two vectors.
+	 * @param v1x the first vector's x-component.
+	 * @param v1y the first vector's y-component.
+	 * @param v1z the first vector's z-component.
+	 * @param v2x the second vector's x-component.
+	 * @param v2y the second vector's y-component.
+	 * @param v2z the second vector's z-component.
+	 * @return the dot product of both vectors.
+	 */
+	private static double getVectorDotProduct(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z)
+	{
+		return v1x * v2x + v1y * v2y + v1z * v2z;
+	}
+
 	private static class Cache
 	{
 		private static final ThreadLocal<Cache> LOCAL = ThreadLocal.withInitial(()->new Cache());
