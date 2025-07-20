@@ -83,9 +83,9 @@ public final class Utils
 	public static int wrapValue(int val, int lo, int hi)
 	{
 		val = val - (int)(val - lo) / (hi - lo) * (hi - lo);
-	   	if (val < 0)
-	   		val = val + hi - lo;
-	   	return val;
+		if (val < 0)
+			val = val + hi - lo;
+		return val;
 	}
 
 	/**
@@ -101,9 +101,9 @@ public final class Utils
 	public static short wrapValue(short val, short lo, short hi)
 	{
 		val = (short)(val - (val - lo) / (hi - lo) * (hi - lo));
-	   	if (val < 0)
-	   		val = (short)(val + hi - lo);
-	   	return val;
+		if (val < 0)
+			val = (short)(val + hi - lo);
+		return val;
 	}
 
 	/**
@@ -503,7 +503,7 @@ public final class Utils
 	 */
 	public static double randDouble(Random rand)
 	{
-	    return rand.nextDouble();
+		return rand.nextDouble();
 	}
 
 	/**
@@ -513,7 +513,7 @@ public final class Utils
 	 */
 	public static boolean randBoolean(Random rand)
 	{
-	    return rand.nextBoolean();
+		return rand.nextBoolean();
 	}
 
 	/**
@@ -535,7 +535,7 @@ public final class Utils
 	 */
 	public static double randDoubleN(Random rand)
 	{
-	    return randDouble(rand) * (randBoolean(rand)? -1.0 : 1.0);
+		return randDouble(rand) * (randBoolean(rand)? -1.0 : 1.0);
 	}
 	
 }

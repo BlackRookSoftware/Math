@@ -1005,7 +1005,7 @@ public class PairGroup implements Iterable<PairGroup.Pair>
 		
 		private int randInt(Random rand, int lo, int hi)
 		{
-		    return rand.nextInt(hi - lo + 1) + lo;
+			return rand.nextInt(hi - lo + 1) + lo;
 		}
 	
 	

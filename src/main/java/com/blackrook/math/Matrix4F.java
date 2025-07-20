@@ -687,23 +687,23 @@ public class Matrix4F
 		float viewWidth = Math.max(left, right) - Math.min(left, right);
 		float viewHeight = Math.max(bottom, top) - Math.min(bottom, top);
 		float viewAspect = viewWidth / viewHeight;
-        
-        if (targetAspect >= viewAspect)
-        {
-            float axis = targetAspect * viewHeight;
-            float widthDiff = (axis - viewWidth) / 2f;
-            right = left + viewWidth + widthDiff;
-            left = left - widthDiff;
-        }
-        else
-        {
-            float axis = (1.0f / targetAspect) * viewWidth;
-            float heightDiff = (axis - viewHeight) / 2f;
-            top = bottom + viewHeight + heightDiff;
-        	bottom = bottom - heightDiff;
-        }
 		
-        orthoArray(out, left, right, bottom, top, near, far);
+		if (targetAspect >= viewAspect)
+		{
+			float axis = targetAspect * viewHeight;
+			float widthDiff = (axis - viewWidth) / 2f;
+			right = left + viewWidth + widthDiff;
+			left = left - widthDiff;
+		}
+		else
+		{
+			float axis = (1.0f / targetAspect) * viewWidth;
+			float heightDiff = (axis - viewHeight) / 2f;
+			top = bottom + viewHeight + heightDiff;
+			bottom = bottom - heightDiff;
+		}
+		
+		orthoArray(out, left, right, bottom, top, near, far);
 	}
 	
 	// Multiplies two matrices.

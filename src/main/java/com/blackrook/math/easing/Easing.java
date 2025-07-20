@@ -50,11 +50,11 @@ public enum Easing implements EasingType
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
 			inputScalar = inputScalar * 2;
-            if (inputScalar < 1) {
-                return Math.pow(inputScalar, 2) / 2;
-            }
-            inputScalar -= 2;
-            return (Math.pow(inputScalar, 2) + 2) / 2;
+			if (inputScalar < 1) {
+				return Math.pow(inputScalar, 2) / 2;
+			}
+			inputScalar -= 2;
+			return (Math.pow(inputScalar, 2) + 2) / 2;
 		}
 	},
 	
@@ -85,11 +85,11 @@ public enum Easing implements EasingType
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
 			inputScalar = inputScalar * 2;
-            if (inputScalar < 1) {
-                return Math.pow(inputScalar, 3) / 2;
-            }
-            inputScalar -= 2;
-            return (Math.pow(inputScalar, 3) + 2) / 2;
+			if (inputScalar < 1) {
+				return Math.pow(inputScalar, 3) / 2;
+			}
+			inputScalar -= 2;
+			return (Math.pow(inputScalar, 3) + 2) / 2;
 		}
 	},
 	
@@ -99,35 +99,35 @@ public enum Easing implements EasingType
 		public double getScaling(double inputScalar)
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
-            double s = 7.5625f;
-            double p = 2.75f;
-            double out = 0f;
-	        if (inputScalar < (1 / p))
-	        {
-	            out = s * inputScalar * inputScalar;
-	        } 
-	        else
-	        {
-	            if (inputScalar < (2 / p))
-	            {
-	                inputScalar -= (1.5 / p);
-	                out = s * inputScalar * inputScalar + .75f;
-	            } 
-	            else
-	            {
-	                if (inputScalar < (2.5 / p))
-	                {
-	                    inputScalar -= (2.25 / p);
-	                    out = s * inputScalar * inputScalar + .9375f;
-	                } 
-	                else
-	                {
-	                    inputScalar -= (2.625 / p);
-	                    out = s * inputScalar * inputScalar + .984375f;
-	                }
-	            }
-	        }
-	        return out;
+			double s = 7.5625f;
+			double p = 2.75f;
+			double out = 0f;
+			if (inputScalar < (1 / p))
+			{
+				out = s * inputScalar * inputScalar;
+			} 
+			else
+			{
+				if (inputScalar < (2 / p))
+				{
+					inputScalar -= (1.5 / p);
+					out = s * inputScalar * inputScalar + .75f;
+				} 
+				else
+				{
+					if (inputScalar < (2.5 / p))
+					{
+						inputScalar -= (2.25 / p);
+						out = s * inputScalar * inputScalar + .9375f;
+					} 
+					else
+					{
+						inputScalar -= (2.625 / p);
+						out = s * inputScalar * inputScalar + .984375f;
+					}
+				}
+			}
+			return out;
 		}
 	},
 	
@@ -137,13 +137,13 @@ public enum Easing implements EasingType
 		public double getScaling(double inputScalar)
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
-            if (inputScalar == 0 || inputScalar == 1)
-            {
-                return inputScalar;
-            }
-            double p = 0.3f;
-            double s = p / 4;
-            return (Math.pow(2, -10 * inputScalar) * Math.sin((inputScalar - s) * (2 * Math.PI) / p) + 1);
+			if (inputScalar == 0 || inputScalar == 1)
+			{
+				return inputScalar;
+			}
+			double p = 0.3f;
+			double s = p / 4;
+			return (Math.pow(2, -10 * inputScalar) * Math.sin((inputScalar - s) * (2 * Math.PI) / p) + 1);
 		}
 	},
 	
@@ -153,8 +153,8 @@ public enum Easing implements EasingType
 		public double getScaling(double inputScalar)
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
-            double s = 1.70158f;
-            return inputScalar * inputScalar * ((s + 1) * inputScalar - s);
+			double s = 1.70158f;
+			return inputScalar * inputScalar * ((s + 1) * inputScalar - s);
 		}
 	},
 	
@@ -164,9 +164,9 @@ public enum Easing implements EasingType
 		public double getScaling(double inputScalar)
 		{
 			inputScalar = Utils.clampValue(inputScalar, 0f, 1f);
-            inputScalar = inputScalar - 1;
-            double s = 1.70158f;
-            return inputScalar * inputScalar * ((s + 1) * inputScalar + s) + 1;
+			inputScalar = inputScalar - 1;
+			double s = 1.70158f;
+			return inputScalar * inputScalar * ((s + 1) * inputScalar + s) + 1;
 		}
 	},
 	;

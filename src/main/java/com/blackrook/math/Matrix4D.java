@@ -677,23 +677,23 @@ public class Matrix4D
 		double viewWidth = Math.max(left, right) - Math.min(left, right);
 		double viewHeight = Math.max(bottom, top) - Math.min(bottom, top);
 		double viewAspect = viewWidth / viewHeight;
-        
-        if (targetAspect >= viewAspect)
-        {
-        	double axis = targetAspect * viewHeight;
-        	double widthDiff = (axis - viewWidth) / 2f;
-            right = left + viewWidth + widthDiff;
-            left = left - widthDiff;
-        }
-        else
-        {
-        	double axis = (1.0f / targetAspect) * viewWidth;
-        	double heightDiff = (axis - viewHeight) / 2f;
-            top = bottom + viewHeight + heightDiff;
-        	bottom = bottom - heightDiff;
-        }
 		
-        orthoArray(out, left, right, bottom, top, near, far);	
+		if (targetAspect >= viewAspect)
+		{
+			double axis = targetAspect * viewHeight;
+			double widthDiff = (axis - viewWidth) / 2f;
+			right = left + viewWidth + widthDiff;
+			left = left - widthDiff;
+		}
+		else
+		{
+			double axis = (1.0f / targetAspect) * viewWidth;
+			double heightDiff = (axis - viewHeight) / 2f;
+			top = bottom + viewHeight + heightDiff;
+			bottom = bottom - heightDiff;
+		}
+		
+		orthoArray(out, left, right, bottom, top, near, far);	
 	}
 	
 	// Multiplies two matrices.
